@@ -1,4 +1,4 @@
-# 🪪 OCR & Face Verification Pipeline
+# 🪪 OCR & Face Verification Pipeline (Project README)
 
 
 This repository contains our exploration and development journey in building an **OCR and face verification pipeline** for ID card processing. The goal was to extract text from ID cards and verify whether the holder's face matches the face on the ID.
