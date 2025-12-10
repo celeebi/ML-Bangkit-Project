@@ -1,20 +1,125 @@
-the script that is shown for OCR and verification has a different outcome than originally planned,
-we found out along the way that there's already existing framework for OCR and face verification, 
+# 🪪 OCR & Face Verification Pipeline
 
-earlier we found that there is Google Tesseract that is used by many people for OCR problem, although the outcome isn't as great as we expected
-we discuss a little bit of OCR with some of our friend that is experienced in Machine Learning and we conclude that we need a better and built our own model
-though the time doesn't really let us do that, but we keep that in mind to improve our product for future development
 
-and to verify the face of the holder of the ID and the face on the ID itself can be done using an existing library that is DeepFace
+This repository contains our exploration and development journey in building an **OCR and face verification pipeline** for ID card processing. The goal was to extract text from ID cards and verify whether the holder's face matches the face on the ID.
 
-so before running the script it's important to get install Google Tesseract and add it to path before we can use it on pytesseract wrapper,
 
-we can install deepface directly on pip, and the wrapped model will automatically downloaded when we change between model,
-after some tuning and test we found out that using FaceNet model is much more better on Id card rather than using the default deepface model that is
-VGG-Face.
+While the final implementation shifted from our initial plan, this README documents the process, decisions, and lessons learned throughout development.
 
-edit: in the end we don't use the deepface or the tesseract ocr.
 
+---
+
+
+## 📌 Project Overview
+Our initial idea was to:
+1. Perform OCR on ID cards using a Python-based script.
+2. Extract relevant information such as name, ID number, and birth date.
+3. Perform face verification to ensure the cardholder matches the face on the ID.
+
+
+During development, we experimented with various tools, frameworks, and models before ultimately deciding **not** to use Tesseract OCR or DeepFace in the final version. This README captures that journey.
+
+
+---
+
+
+## 🔍 OCR Attempts & Findings
+### **1. Tesseract OCR Exploration**
+- We initially explored **Google Tesseract**, a widely used OCR engine.
+- We used the `pytesseract` wrapper for integration in Python.
+- **Outcome:** The text extraction quality for ID cards was below our expectations.
+- After consulting with peers experienced in Machine Learning, we realized:
+- Tesseract struggles with low-resolution ID cards.
+- OCR performance is sensitive to lighting, fonts, and ID card layouts.
+- For production-quality OCR, a **custom-trained OCR model** would be more reliable.
+
+
+### **2. Future Development Direction**
+Although time constraints prevented us from building a custom OCR model, we plan to:
+- Train a specialized OCR model tailored to ID card layouts.
+- Explore modern deep learning OCR frameworks (e.g., CRNN, TrOCR, PaddleOCR).
+
+
+---
+
+
+## 🧑‍🤝‍🧑 Face Verification Attempts & Findings
+### **1. DeepFace Integration Attempt**
+We explored **DeepFace**, an easy-to-use Python library for face verification.
+
+
+- Can be installed directly with `pip install deepface`.
+- Supports multiple models: VGG-Face, FaceNet, ArcFace, etc.
+- Automatically downloads model weights when switching models.
+
+
+### **2. Model Observation**
+Through testing, we found:
+- **FaceNet** performed significantly better on ID card photos
+- **VGG-Face** (DeepFace default model) was inconsistent for ID card images
+
+
+### **3. Final Decision**
+Despite promising results, we ultimately chose **not to use DeepFace** due to:
+- Time limitations for fine-tuning verification thresholds
+- Model inconsistency with certain ID formats
+- Need for a more tailored and robust face matching solution
+
+
+---
+
+
+## ❗ Final Implementation Note
+In the **final version of the project**, we **did not use**:
+- Tesseract OCR
+- DeepFace
+
+
+Instead, the implemented solution focuses on the aspects that aligned best with our time constraints and performance requirements.
+
+
+This documentation remains as a reference for our experimentation journey and as a guide for future development.
+
+
+---
+
+
+## 🔧 Requirements (If Revisiting the Approach)
+If you plan to explore the original tools we tested:
+
+
+### **Tesseract OCR**
+1. Install Google Tesseract (OS-specific installers)
+2. Add Tesseract executable to your system PATH
+3. Install Python wrapper:
+```bash
+pip install pytesseract
+```
+
+
+### **DeepFace**
+```bash
+pip install deepface
+```
+Models will be downloaded automatically when selected.
+
+
+---
+
+
+## 📈 Future Improvements
+- Build a dedicated OCR model specialized for Indonesian ID cards
+- Implement a lightweight face verification model optimized for real-time inference
+- Improve preprocessing pipeline for image enhancement
+- Add automated confidence scoring for ID verification
+
+
+---
+
+
+## 📄 Conclusion
+This project taught us the importance of:
+While we pivoted from our initial plan, the lessons learned will directly inform future iterations of this product.
 
 
 
